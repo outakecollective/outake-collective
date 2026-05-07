@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact — Outake Collective</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav id="navbar">
+  <a href="index.html" class="nav-logo">OUTAKE</a>
+  <button class="nav-menu-btn" id="menuToggle" aria-label="Open menu">
+    <span></span><span></span>
+  </button>
+  <div class="nav-overlay" id="navOverlay">
+    <button class="nav-close" id="navClose">✕</button>
+    <div class="nav-overlay-inner">
+      <div class="nav-links">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="music.html" class="nav-link">Music Group</a>
+        <a href="productions.html" class="nav-link">Productions</a>
+        <a href="partners.html" class="nav-link">Partners</a>
+        <a href="work.html" class="nav-link">Our Work</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+      </div>
+      <div class="nav-footer">
+        <a href="#">Instagram</a>
+        <a href="#">Twitter</a>
+        <a href="#">Spotify</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<section class="page-hero">
+  <div class="page-hero-bg"></div>
+  <div class="page-hero-inner">
+    <p class="page-breadcrumb reveal">Outake Collective / Contact</p>
+    <h1 class="page-title reveal">LET'S<br>TALK</h1>
+    <p class="page-sub reveal">Whether you're an artist, a brand, or just have an idea — we want to hear from you.</p>
+  </div>
+</section>
+
+<section class="contact-main">
+  <div class="container">
+    <div class="contact-layout">
+
+      <div class="contact-info">
+        <h3 class="reveal">We're building<br>the next wave.</h3>
+        <p class="reveal">Reach out to discuss music, productions, partnerships, or any creative venture you think we should know about. We take every message seriously.</p>
+
+        <div class="contact-details">
+          <div class="contact-detail-item reveal">
+            <h5>General Inquiries</h5>
+            <a href="mailto:hello@outakecollective.com">hello@outakecollective.com</a>
+          </div>
+          <div class="contact-detail-item reveal">
+            <h5>Music Group</h5>
+            <a href="mailto:music@outakecollective.com">music@outakecollective.com</a>
+          </div>
+          <div class="contact-detail-item reveal">
+            <h5>Productions</h5>
+            <a href="mailto:productions@outakecollective.com">productions@outakecollective.com</a>
+          </div>
+          <div class="contact-detail-item reveal">
+            <h5>Partnerships</h5>
+            <a href="mailto:partners@outakecollective.com">partners@outakecollective.com</a>
+          </div>
+          <div class="contact-detail-item reveal">
+            <h5>Follow Us</h5>
+            <p>
+              <a href="#" style="margin-right:20px">Instagram</a>
+              <a href="#" style="margin-right:20px">Twitter</a>
+              <a href="#">Spotify</a>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <form class="contact-form" id="contactForm">
+        <div class="form-row">
+          <div class="form-group reveal">
+            <label for="fname">First Name</label>
+            <input type="text" id="fname" name="fname" placeholder="First" required>
+          </div>
+          <div class="form-group reveal">
+            <label for="lname">Last Name</label>
+            <input type="text" id="lname" name="lname" placeholder="Last" required>
+          </div>
+        </div>
+
+        <div class="form-group reveal">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="you@example.com" required>
+        </div>
+
+        <div class="form-group reveal">
+          <label for="inquiry">I'm reaching out about</label>
+          <select id="inquiry" name="inquiry">
+            <option value="">Select a topic</option>
+            <option value="music">Music Group</option>
+            <option value="productions">Productions</option>
+            <option value="partnership">Partnership</option>
+            <option value="general">General</option>
+          </select>
+        </div>
+
+        <div class="form-group reveal">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" placeholder="Tell us what's on your mind..." required></textarea>
+        </div>
+
+        <button type="submit" class="btn-primary reveal" style="align-self: flex-start; border: none; font-family: inherit; cursor: pointer;">
+          Send Message
+        </button>
+      </form>
+
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-logo">OUTAKE</div>
+        <p>A multidisciplinary creative collective.</p>
+      </div>
+      <div class="footer-nav">
+        <h5>Studio</h5>
+        <a href="music.html">Music Group</a>
+        <a href="productions.html">Productions</a>
+        <a href="partners.html">Partners</a>
+        <a href="work.html">Our Work</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="footer-social">
+        <h5>Follow</h5>
+        <a href="#">Instagram</a>
+        <a href="#">Twitter</a>
+        <a href="#">Spotify</a>
+        <a href="#">YouTube</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© Outake Collective 2026</span>
+      <a href="#">Privacy Policy</a>
+    </div>
+  </div>
+</footer>
+
+<script src="main.js"></script>
+</body>
+</html>
