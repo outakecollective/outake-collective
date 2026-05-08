@@ -74,7 +74,7 @@ img { max-width: 100%; display: block; }
   background: none;
   border: 1px solid var(--border);
   color: var(--white);
-  cursor: pointer;
+  cursor: none;
   padding: 10px 16px;
   display: flex;
   flex-direction: column;
@@ -102,7 +102,7 @@ img { max-width: 100%; display: block; }
 .nav-close {
   position: absolute; top: 28px; right: 40px;
   background: none; border: none;
-  color: var(--white); font-size: 24px; cursor: pointer; padding: 8px;
+  color: var(--white); font-size: 24px; cursor: none; padding: 8px;
 }
 
 .nav-overlay-inner {
@@ -222,7 +222,7 @@ img { max-width: 100%; display: block; }
   background: var(--accent); color: var(--black);
   font-size: 13px; font-weight: 500;
   letter-spacing: 0.1em; text-transform: uppercase;
-  border: none; cursor: pointer;
+  border: none; cursor: none;
   transition: background 0.3s ease, transform 0.2s ease;
   border-radius: 2px;
 }
@@ -337,7 +337,7 @@ img { max-width: 100%; display: block; }
   padding: 48px;
   display: flex; flex-direction: column; gap: 24px;
   position: relative; overflow: hidden;
-  transition: background 0.4s ease; cursor: pointer;
+  transition: background 0.4s ease; cursor: none;
 }
 .division-card::after {
   content: ''; position: absolute;
@@ -384,7 +384,7 @@ img { max-width: 100%; display: block; }
   display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
 }
 
-.work-item { position: relative; cursor: pointer; overflow: hidden; }
+.work-item { position: relative; cursor: none; overflow: hidden; }
 .work-item a { display: block; }
 
 .work-thumb {
@@ -567,7 +567,7 @@ img { max-width: 100%; display: block; }
   justify-content: space-between;
   padding: 28px 0;
   border-top: 1px solid var(--border);
-  cursor: default; gap: 24px;
+  cursor: none; gap: 24px;
   transition: padding 0.3s var(--ease);
 }
 .service-row:hover { padding-left: 16px; }
@@ -651,7 +651,7 @@ img { max-width: 100%; display: block; }
 }
 .prod-item {
   position: relative; overflow: hidden;
-  aspect-ratio: 4/3; background: var(--dark); cursor: pointer;
+  aspect-ratio: 4/3; background: var(--dark); cursor: none;
 }
 .prod-item:first-child { grid-column: 1 / -1; aspect-ratio: 21/9; }
 
@@ -733,7 +733,7 @@ img { max-width: 100%; display: block; }
   letter-spacing: 0.12em; text-transform: uppercase;
   border: 1px solid var(--border);
   background: none; color: var(--text-muted);
-  cursor: pointer; border-radius: 2px;
+  cursor: none; border-radius: 2px;
   transition: all 0.3s; font-family: var(--font-body);
 }
 .filter-btn:hover, .filter-btn.active {
@@ -1214,4 +1214,202 @@ body {
 
 @media (max-width: 600px) {
   .stats-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* =====================
+   FOOTER SOCIAL ICONS
+   ===================== */
+
+.footer-social-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  color: var(--text-muted);
+  transition: color 0.3s;
+}
+
+.footer-social-link:hover { color: var(--white); }
+
+.social-icon {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  opacity: 0.6;
+  transition: opacity 0.3s;
+  flex-shrink: 0;
+}
+
+.footer-social-link:hover .social-icon { opacity: 1; }
+
+/* =====================
+   APPAREL PAGE
+   ===================== */
+
+.apparel-thumb-1,
+.apparel-thumb-2,
+.apparel-thumb-3 {
+  aspect-ratio: 3/4;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.apparel-thumb-1 {
+  background: linear-gradient(135deg, #1a1a1a 0%, #2a2018 60%, #1a1a1a 100%);
+}
+.apparel-thumb-2 {
+  background: linear-gradient(135deg, #0d0d0d 0%, #1a1a28 60%, #0d0d0d 100%);
+}
+.apparel-thumb-3 {
+  background: linear-gradient(135deg, #1a1a1a 0%, #1e2818 60%, #1a1a1a 100%);
+}
+
+.apparel-thumb-label {
+  font-family: var(--font-display);
+  font-size: 22px;
+  letter-spacing: 0.1em;
+  color: rgba(200,184,154,0.25);
+  text-align: center;
+  padding: 20px;
+  position: relative;
+  z-index: 1;
+  transition: color 0.3s;
+}
+
+.work-item:hover .apparel-thumb-label { color: rgba(200,184,154,0.5); }
+
+/* POPUP ALERT */
+.popup-alert {
+  padding: 80px 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  background: var(--off-black);
+}
+
+.popup-alert-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 48px;
+  flex-wrap: wrap;
+}
+
+.popup-alert-text h3 {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 4vw, 52px);
+  letter-spacing: 0.04em;
+  margin: 12px 0 16px;
+  line-height: 1.1;
+}
+
+.popup-alert-text h3 em {
+  font-family: var(--font-serif);
+  font-style: italic;
+  color: var(--accent);
+  font-size: 0.9em;
+}
+
+.popup-alert-text p {
+  font-size: 15px;
+  color: var(--text-muted);
+  max-width: 420px;
+  line-height: 1.7;
+}
+
+/* =====================
+   PRIVACY PAGE
+   ===================== */
+
+.privacy-content {
+  padding: 80px 0 120px;
+}
+
+.privacy-inner {
+  max-width: 760px;
+}
+
+.privacy-updated {
+  font-size: 12px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 32px;
+}
+
+.privacy-intro {
+  font-size: 18px;
+  line-height: 1.8;
+  color: var(--text-muted);
+  margin-bottom: 56px;
+  border-left: 2px solid var(--accent);
+  padding-left: 24px;
+}
+
+.privacy-section {
+  margin-bottom: 48px;
+  padding-bottom: 48px;
+  border-bottom: 1px solid var(--border);
+}
+
+.privacy-section:last-child {
+  border-bottom: none;
+}
+
+.privacy-section h2 {
+  font-family: var(--font-display);
+  font-size: clamp(22px, 3vw, 36px);
+  letter-spacing: 0.06em;
+  color: var(--white);
+  margin-bottom: 20px;
+}
+
+.privacy-section p {
+  font-size: 15px;
+  line-height: 1.8;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+}
+
+.privacy-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 16px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.privacy-section ul li {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--text-muted);
+  padding-left: 20px;
+  position: relative;
+}
+
+.privacy-section ul li::before {
+  content: '·';
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+.privacy-section a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.3s;
+}
+
+.privacy-section a:hover { color: var(--white); }
+
+.privacy-section strong { color: var(--white); font-weight: 500; }
+
+@media (max-width: 900px) {
+  .popup-alert-inner { flex-direction: column; align-items: flex-start; }
 }

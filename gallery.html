@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gallery — Outake Collective</title>
+<meta name="description" content="Outake Collective Gallery — Music, Productions, and Apparel.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  .gallery-tabs {
+    display: flex;
+    gap: 0;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 0;
+  }
+  .gallery-tab {
+    padding: 20px 40px;
+    font-family: var(--font-display);
+    font-size: 18px;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: color 0.3s, border-color 0.3s;
+  }
+  .gallery-tab.active {
+    color: var(--white);
+    border-bottom-color: var(--accent);
+  }
+  .gallery-tab:hover { color: var(--white); }
+
+  .gallery-section { display: none; padding: 60px 0 100px; }
+  .gallery-section.active { display: block; }
+
+  .gallery-masonry {
+    columns: 3;
+    column-gap: 16px;
+  }
+  .gallery-masonry-item {
+    break-inside: avoid;
+    margin-bottom: 16px;
+    overflow: hidden;
+    border-radius: 3px;
+    position: relative;
+  }
+  .gallery-masonry-item img {
+    width: 100%;
+    display: block;
+    transition: transform 0.5s var(--ease);
+  }
+  .gallery-masonry-item:hover img { transform: scale(1.03); }
+
+  .gallery-masonry-item .gallery-item-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 20px;
+    background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  .gallery-masonry-item:hover .gallery-item-overlay { opacity: 1; }
+  .gallery-item-overlay span {
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 4px;
+  }
+  .gallery-item-overlay p {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 18px;
+    color: var(--white);
+  }
+
+  .gallery-section-header {
+    margin-bottom: 40px;
+  }
+  .gallery-section-header h2 {
+    font-family: var(--font-display);
+    font-size: clamp(36px, 5vw, 64px);
+    letter-spacing: 0.04em;
+    margin-bottom: 12px;
+  }
+  .gallery-section-header p {
+    font-size: 15px;
+    color: var(--text-muted);
+    max-width: 480px;
+    line-height: 1.7;
+  }
+
+  /* Apparel collection groups */
+  .apparel-collection {
+    margin-bottom: 80px;
+  }
+  .apparel-collection-title {
+    font-family: var(--font-display);
+    font-size: clamp(28px, 4vw, 52px);
+    letter-spacing: 0.06em;
+    margin-bottom: 8px;
+  }
+  .apparel-collection-desc {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-bottom: 32px;
+    max-width: 440px;
+    line-height: 1.7;
+  }
+  .apparel-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .apparel-item {
+    aspect-ratio: 3/4;
+    background: var(--off-black);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .apparel-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s var(--ease);
+  }
+  .apparel-item:hover img { transform: scale(1.04); }
+  .apparel-item-placeholder {
+    font-family: var(--font-display);
+    font-size: 14px;
+    letter-spacing: 0.15em;
+    color: rgba(200,184,154,0.2);
+    text-transform: uppercase;
+    text-align: center;
+    padding: 20px;
+  }
+
+  @media (max-width: 900px) {
+    .gallery-masonry { columns: 2; }
+    .apparel-grid { grid-template-columns: repeat(2, 1fr); }
+    .gallery-tab { padding: 16px 20px; font-size: 15px; }
+  }
+  @media (max-width: 600px) {
+    .gallery-masonry { columns: 1; }
+    .apparel-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<nav id="navbar">
+  <a href="index.html" class="nav-logo">
+    <img src="logo-white.png" alt="Outake Collective" class="logo-img">
+  </a>
+  <button class="nav-menu-btn" id="menuToggle" aria-label="Open menu">
+    <span></span><span></span>
+  </button>
+  <div class="nav-overlay" id="navOverlay">
+    <button class="nav-close" id="navClose">✕</button>
+    <div class="nav-overlay-inner">
+      <div class="nav-links">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="music.html" class="nav-link">Music Group</a>
+        <a href="productions.html" class="nav-link">Productions</a>
+        <a href="apparel.html" class="nav-link">Apparel</a>
+        <a href="partners.html" class="nav-link">Partners</a>
+        <a href="work.html" class="nav-link">Our Work</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+      </div>
+      <div class="nav-footer">
+        <a href="https://www.instagram.com/outakecollective/" target="_blank">Instagram</a>
+        <a href="https://www.tiktok.com/@outakeprod" target="_blank">TikTok</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="page-hero" style="min-height: 40vh;">
+  <div class="page-hero-bg"></div>
+  <div class="page-hero-inner">
+    <p class="page-breadcrumb reveal">Outake Collective / Gallery</p>
+    <h1 class="page-title reveal">GALLERY</h1>
+    <p class="page-sub reveal">Music. Productions. Apparel. Everything we've made.</p>
+  </div>
+</section>
+
+<!-- TABS -->
+<div style="background: var(--off-black); border-bottom: 1px solid var(--border);">
+  <div class="container" style="padding-top: 0; padding-bottom: 0;">
+    <div class="gallery-tabs">
+      <button class="gallery-tab active" data-tab="music">Music</button>
+      <button class="gallery-tab" data-tab="productions">Productions</button>
+      <button class="gallery-tab" data-tab="apparel">Apparel</button>
+    </div>
+  </div>
+</div>
+
+<!-- MUSIC TAB -->
+<div class="gallery-section active" id="tab-music">
+  <div class="container">
+    <div class="gallery-section-header">
+      <h2>Music Group</h2>
+      <p>Live events, artist moments, and behind-the-scenes from SIDEKWEST, OMG Moment, and the full roster.</p>
+    </div>
+    <div class="gallery-masonry">
+      <div class="gallery-masonry-item">
+        <img src="img-sidekwest-15.jpg" alt="SIDEKWEST" loading="lazy">
+        <div class="gallery-item-overlay"><span>Event</span><p>SIDEKWEST</p></div>
+      </div>
+      <div class="gallery-masonry-item">
+        <img src="img-omg-vangels.jpg" alt="OMG Moment — VANGELS" loading="lazy">
+        <div class="gallery-item-overlay"><span>OMG Moment</span><p>VANGELS</p></div>
+      </div>
+      <div class="gallery-masonry-item">
+        <img src="img-lks-concert.jpg" alt="Last Known Species" loading="lazy">
+        <div class="gallery-item-overlay"><span>Live</span><p>Last Known Species</p></div>
+      </div>
+      <div class="gallery-masonry-item">
+        <img src="img-sidekwest-1.jpg" alt="SIDEKWEST" loading="lazy">
+        <div class="gallery-item-overlay"><span>Event</span><p>SIDEKWEST</p></div>
+      </div>
+      <div class="gallery-masonry-item">
+        <img src="img-recap-02.jpg" alt="Recap" loading="lazy">
+        <div class="gallery-item-overlay"><span>Recap</span><p>Outake Music Group</p></div>
+      </div>
+      <div class="gallery-masonry-item">
+        <img src="img-recap-04.jpg" alt="Recap" loading="lazy">
+        <div class="gallery-item-overlay"><span>Recap</span><p>Outake Music Group</p></div>
+      </div>
+      <div class="gallery-masonry-item">
+        <img src="img-sidekwest-2.jpg" alt="SIDEKWEST" loading="lazy">
+        <div class="gallery-item-overlay"><span>Event</span><p>SIDEKWEST</p></div>
+      </div>
+      <div class="gallery-masonry-item">
+        <img src="img-recap-06.jpg" alt="Recap" loading="lazy">
+        <div class="gallery-item-overlay"><span>Recap</span><p>Outake Music Group</p></div>
+      </div>
+      <div class="gallery-masonry-item">
+        <img src="img-omg-efren.jpg" alt="OMG Moment" loading="lazy">
+        <div class="gallery-item-overlay"><span>OMG Moment</span><p>Outake Music Group</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PRODUCTIONS TAB -->
+<div class="gallery-section" id="tab-productions">
+  <div class="container">
+    <div class="gallery-section-header">
+      <h2>Productions</h2>
+      <p>Stills and visuals from EXPSR, FACES, and our ongoing film and media projects.</p>
+    </div>
+    <div class="gallery-masonry">
+      <div class="gallery-masonry-item">
+        <img src="img-fisheye.jpg" alt="EXPSR" loading="lazy">
+        <div class="gallery-item-overlay"><span>EXPSR</span><p>Community Photowalk</p></div>
+      </div>
+      <div class="gallery-masonry-item">
+        <img src="img-sidekwest-3.jpg" alt="Productions" loading="lazy">
+        <div class="gallery-item-overlay"><span>Productions</span><p>Behind The Lens</p></div>
+      </div>
+      <!-- Add more production images here as you get them -->
+      <div class="gallery-masonry-item" style="background: var(--off-black); border: 1px solid var(--border); aspect-ratio: 3/4; display:flex; align-items:center; justify-content:center;">
+        <p style="font-family:var(--font-display); font-size:14px; letter-spacing:0.12em; color:rgba(200,184,154,0.25); text-align:center; padding:20px;">MORE COMING SOON</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- APPAREL TAB -->
+<div class="gallery-section" id="tab-apparel">
+  <div class="container">
+    <div class="gallery-section-header">
+      <h2>Apparel</h2>
+      <p>Limited collections available exclusively at Outake popup events. Designed in-house, every time.</p>
+    </div>
+
+    <!-- City of Angels -->
+    <div class="apparel-collection">
+      <h3 class="apparel-collection-title">City of Angels</h3>
+      <p class="apparel-collection-desc">A love letter to Los Angeles — the city that made us. Available at select popup events.</p>
+      <div class="apparel-grid">
+        <div class="apparel-item">
+          <div class="apparel-item-placeholder">City of Angels<br>Drop 01</div>
+        </div>
+        <div class="apparel-item">
+          <div class="apparel-item-placeholder">City of Angels<br>Drop 02</div>
+        </div>
+        <div class="apparel-item">
+          <div class="apparel-item-placeholder">City of Angels<br>Drop 03</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Like No Other -->
+    <div class="apparel-collection">
+      <h3 class="apparel-collection-title">Like No Other</h3>
+      <p class="apparel-collection-desc">Built different. Worn different. For the ones who move outside the lines.</p>
+      <div class="apparel-grid">
+        <div class="apparel-item">
+          <div class="apparel-item-placeholder">Like No Other<br>Drop 01</div>
+        </div>
+        <div class="apparel-item">
+          <div class="apparel-item-placeholder">Like No Other<br>Drop 02</div>
+        </div>
+        <div class="apparel-item">
+          <div class="apparel-item-placeholder">Like No Other<br>Drop 03</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Se Logró -->
+    <div class="apparel-collection">
+      <h3 class="apparel-collection-title">Se Logró</h3>
+      <p class="apparel-collection-desc">It was accomplished. A celebration of culture, grit, and everything we've built together.</p>
+      <div class="apparel-grid">
+        <div class="apparel-item">
+          <div class="apparel-item-placeholder">Se Logró<br>Drop 01</div>
+        </div>
+        <div class="apparel-item">
+          <div class="apparel-item-placeholder">Se Logró<br>Drop 02</div>
+        </div>
+        <div class="apparel-item">
+          <div class="apparel-item-placeholder">Se Logró<br>Drop 03</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align:center; padding: 40px 0; border-top: 1px solid var(--border);">
+      <p style="font-size:14px; color: var(--text-muted); margin-bottom: 24px;">Apparel is available exclusively at Outake popup events. Follow us to find out when the next drop happens.</p>
+      <a href="https://www.instagram.com/outakecollective/" target="_blank" class="btn-primary">Follow for Drop Announcements</a>
+    </div>
+
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="logo-white.png" alt="Outake Collective" class="footer-logo-img">
+        <p>A full service creative agency.<br>We Shift Culture.</p>
+        <p class="footer-location">Los Angeles, CA</p>
+      </div>
+      <div class="footer-nav">
+        <h5>Studio</h5>
+        <a href="music.html">Music Group</a>
+        <a href="productions.html">Productions</a>
+        <a href="apparel.html">Apparel</a>
+        <a href="partners.html">Partners</a>
+        <a href="work.html">Our Work</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="footer-social">
+        <h5>Follow</h5>
+        <a href="https://www.instagram.com/outakecollective/" target="_blank" class="footer-social-link">
+          <img src="img-social-instagram.png" alt="Instagram" class="social-icon"> @outakecollective
+        </a>
+        <a href="https://www.instagram.com/outakemusic/" target="_blank" class="footer-social-link">
+          <img src="img-social-instagram.png" alt="Instagram" class="social-icon"> @outakemusic
+        </a>
+        <a href="https://www.instagram.com/outakeprod/" target="_blank" class="footer-social-link">
+          <img src="img-social-instagram.png" alt="Instagram" class="social-icon"> @outakeprod
+        </a>
+        <a href="https://www.tiktok.com/@outakeprod" target="_blank" class="footer-social-link">
+          <img src="img-social-tiktok.png" alt="TikTok" class="social-icon"> @outakeprod
+        </a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© Outake Collective 2026</span>
+      <a href="privacy.html">Privacy Policy</a>
+    </div>
+  </div>
+</footer>
+
+<script src="main.js"></script>
+<script>
+// Gallery tab switching
+const tabs = document.querySelectorAll('.gallery-tab');
+const sections = document.querySelectorAll('.gallery-section');
+
+// Check URL hash on load
+const hash = window.location.hash.replace('#', '');
+if (hash) {
+  tabs.forEach(t => {
+    t.classList.toggle('active', t.dataset.tab === hash);
+  });
+  sections.forEach(s => {
+    s.classList.toggle('active', s.id === `tab-${hash}`);
+  });
+}
+
+tabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    tabs.forEach(t => t.classList.remove('active'));
+    sections.forEach(s => s.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById(`tab-${tab.dataset.tab}`).classList.add('active');
+    window.location.hash = tab.dataset.tab;
+  });
+});
+</script>
+</body>
+</html>
