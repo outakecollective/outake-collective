@@ -12,7 +12,9 @@
 <body>
 
 <nav id="navbar">
-  <a href="index.html" class="nav-logo">OUTAKE</a>
+  <a href="index.html" class="nav-logo">
+    <img src="logo-white.png" alt="Outake Collective" class="logo-img">
+  </a>
   <button class="nav-menu-btn" id="menuToggle" aria-label="Open menu">
     <span></span><span></span>
   </button>
@@ -28,16 +30,18 @@
         <a href="contact.html" class="nav-link">Contact</a>
       </div>
       <div class="nav-footer">
-        <a href="#">Instagram</a>
-        <a href="#">Twitter</a>
-        <a href="#">Spotify</a>
+        <a href="https://www.instagram.com/outakecollective/" target="_blank">Instagram</a>
+        <a href="https://www.tiktok.com/@outakeprod" target="_blank">TikTok</a>
       </div>
     </div>
   </div>
 </nav>
 
 <section class="page-hero">
-  <div class="page-hero-bg"></div>
+  <div class="page-hero-bg">
+    <img src="img-recap-04.jpg" alt="" class="hero-bg-img" style="opacity:0.35;">
+    <div class="hero-bg-overlay"></div>
+  </div>
   <div class="page-hero-inner">
     <p class="page-breadcrumb reveal">Outake Collective / Work</p>
     <h1 class="page-title reveal">OUR<br>WORK</h1>
@@ -50,10 +54,9 @@
   <div class="container">
     <div class="filter-btns">
       <button class="filter-btn active" data-filter="all">All</button>
-      <button class="filter-btn" data-filter="Music">Music</button>
-      <button class="filter-btn" data-filter="Film">Film</button>
-      <button class="filter-btn" data-filter="Brand">Brand</button>
-      <button class="filter-btn" data-filter="Event">Event</button>
+      <button class="filter-btn" data-filter="Music">Music Group</button>
+      <button class="filter-btn" data-filter="Film">Productions</button>
+      <button class="filter-btn" data-filter="Event">Events</button>
     </div>
   </div>
 </div>
@@ -63,75 +66,72 @@
   <div class="container">
     <div class="work-full-grid">
 
-      <div class="work-item reveal" data-category="Music">
-        <div class="work-thumb work-thumb-1"></div>
+      <div class="work-item reveal" data-category="Event">
+        <div class="work-thumb">
+          <img src="img-sidekwest-15.jpg" alt="SIDEKWEST" loading="lazy">
+        </div>
         <div class="work-meta">
-          <span class="work-cat">Music</span>
-          <h4>Project Title</h4>
+          <span class="work-cat">Music Group · Event</span>
+          <h4>SIDEKWEST</h4>
+          <p class="work-desc">A rave planned, hosted, and executed entirely in-house. From lineup curation to full event production.</p>
+        </div>
+      </div>
+
+      <div class="work-item reveal" data-category="Music">
+        <div class="work-thumb">
+          <img src="img-omg-vangels.jpg" alt="OMG Moment" loading="lazy">
+        </div>
+        <div class="work-meta">
+          <span class="work-cat">Music Group · Series</span>
+          <h4>OMG Moment</h4>
+          <p class="work-desc">A live showcase series spotlighting artists with full social media campaigns. Think Tiny Desk — but ours.</p>
+        </div>
+      </div>
+
+      <div class="work-item reveal" data-category="Music">
+        <div class="work-thumb">
+          <img src="img-lks-concert.jpg" alt="Last Known Species" loading="lazy">
+        </div>
+        <div class="work-meta">
+          <span class="work-cat">Music Group · Live</span>
+          <h4>Last Known Species</h4>
+          <p class="work-desc">Live event production and artist support for Outake's flagship Indie Synth Pop/Rock act.</p>
         </div>
       </div>
 
       <div class="work-item reveal" data-category="Film">
-        <div class="work-thumb work-thumb-2"></div>
-        <div class="work-meta">
-          <span class="work-cat">Film</span>
-          <h4>Project Title</h4>
+        <div class="work-thumb">
+          <img src="img-fisheye.jpg" alt="EXPSR" loading="lazy">
         </div>
-      </div>
-
-      <div class="work-item reveal" data-category="Brand">
-        <div class="work-thumb work-thumb-3"></div>
         <div class="work-meta">
-          <span class="work-cat">Brand</span>
-          <h4>Project Title</h4>
-        </div>
-      </div>
-
-      <div class="work-item reveal" data-category="Event">
-        <div class="work-thumb" style="background: linear-gradient(135deg, #1a1a20 0%, #251e2a 50%, #1a1a1a 100%); aspect-ratio: 3/4;"></div>
-        <div class="work-meta">
-          <span class="work-cat">Event</span>
-          <h4>Project Title</h4>
-        </div>
-      </div>
-
-      <div class="work-item reveal" data-category="Music">
-        <div class="work-thumb" style="background: linear-gradient(135deg, #201a1a 0%, #2a2018 50%, #1a1a1a 100%); aspect-ratio: 3/4;"></div>
-        <div class="work-meta">
-          <span class="work-cat">Music</span>
-          <h4>Project Title</h4>
+          <span class="work-cat">Productions · Community</span>
+          <h4>EXPSR</h4>
+          <p class="work-desc">A monthly community photowalk series bringing creatives together to explore a new city each time.</p>
         </div>
       </div>
 
       <div class="work-item reveal" data-category="Film">
-        <div class="work-thumb" style="background: linear-gradient(135deg, #1a1a1a 0%, #1e2020 50%, #181a1a 100%); aspect-ratio: 3/4;"></div>
+        <div class="work-thumb">
+          <img src="img-recap-06.jpg" alt="FACES" loading="lazy">
+        </div>
         <div class="work-meta">
-          <span class="work-cat">Film</span>
-          <h4>Project Title</h4>
+          <span class="work-cat">Productions · Narrative</span>
+          <h4>FACES</h4>
+          <p class="work-desc">A short narrative project giving creatives from all backgrounds a platform to tell their story.</p>
         </div>
       </div>
 
-      <div class="work-item reveal" data-category="Brand">
-        <div class="work-thumb work-thumb-1"></div>
-        <div class="work-meta">
-          <span class="work-cat">Brand</span>
-          <h4>Project Title</h4>
+      <div class="work-item reveal" data-category="Film">
+        <div class="work-thumb" style="background:#0d0d0d; display:flex; align-items:center; justify-content:center; aspect-ratio:3/4;">
+          <div style="text-align:center; padding:32px;">
+            <p style="font-size:10px; letter-spacing:0.25em; text-transform:uppercase; color:var(--accent); margin-bottom:10px;">Coming Soon</p>
+            <p style="font-family:var(--font-display); font-size:56px; letter-spacing:0.08em; color:var(--white); line-height:1;">D.I.E.</p>
+          </div>
         </div>
-      </div>
-
-      <div class="work-item reveal" data-category="Music">
-        <div class="work-thumb work-thumb-2"></div>
         <div class="work-meta">
-          <span class="work-cat">Music</span>
-          <h4>Project Title</h4>
-        </div>
-      </div>
-
-      <div class="work-item reveal" data-category="Event">
-        <div class="work-thumb work-thumb-3"></div>
-        <div class="work-meta">
-          <span class="work-cat">Event</span>
-          <h4>Project Title</h4>
+          <span class="work-cat">Productions · Short Film</span>
+          <h4>D.I.E.</h4>
+          <p class="work-desc">An in-house short film funded, shot, and edited by the full Outake team. Red carpet premiere coming soon.</p>
         </div>
       </div>
 
@@ -150,8 +150,9 @@
   <div class="container">
     <div class="footer-grid">
       <div class="footer-brand">
-        <div class="footer-logo">OUTAKE</div>
-        <p>A multidisciplinary creative collective.</p>
+        <img src="logo-white.png" alt="Outake Collective" class="footer-logo-img">
+        <p>A full service creative agency.<br>We Shift Culture.</p>
+        <p class="footer-location">Los Angeles, CA</p>
       </div>
       <div class="footer-nav">
         <h5>Studio</h5>
@@ -163,10 +164,10 @@
       </div>
       <div class="footer-social">
         <h5>Follow</h5>
-        <a href="#">Instagram</a>
-        <a href="#">Twitter</a>
-        <a href="#">Spotify</a>
-        <a href="#">YouTube</a>
+        <a href="https://www.instagram.com/outakecollective/" target="_blank">@outakecollective</a>
+        <a href="https://www.instagram.com/outakemusic/" target="_blank">@outakemusic</a>
+        <a href="https://www.instagram.com/outakeprod/" target="_blank">@outakeprod</a>
+        <a href="https://www.tiktok.com/@outakeprod" target="_blank">TikTok</a>
       </div>
     </div>
     <div class="footer-bottom">
