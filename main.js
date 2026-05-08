@@ -1,4 +1,64 @@
-// NAV scroll behavior
+// =====================
+// PAGE TRANSITION
+// =====================
+const transition = document.createElement('div');
+transition.className = 'page-transition';
+document.body.appendChild(transition);
+
+document.addEventListener('click', (e) => {
+  const link = e.target.closest('a');
+  if (
+    link &&
+    link.href &&
+    !link.href.startsWith('mailto') &&
+    !link.href.startsWith('tel') &&
+    !link.target &&
+    link.hostname === window.location.hostname
+  ) {
+    e.preventDefault();
+    const dest = link.href;
+    transition.classList.add('active');
+    setTimeout(() => { window.location.href = dest; }, 380);
+  }
+});
+
+// =====================
+// CUSTOM CURSOR
+// =====================
+const dot = document.createElement('div');
+dot.className = 'cursor-dot';
+const ring = document.createElement('div');
+ring.className = 'cursor-ring';
+document.body.appendChild(dot);
+document.body.appendChild(ring);
+
+let mouseX = 0, mouseY = 0;
+let ringX = 0, ringY = 0;
+
+document.addEventListener('mousemove', (e) => {
+  mouseX = e.clientX;
+  mouseY = e.clientY;
+  dot.style.left = mouseX + 'px';
+  dot.style.top = mouseY + 'px';
+});
+
+function animateRing() {
+  ringX += (mouseX - ringX) * 0.12;
+  ringY += (mouseY - ringY) * 0.12;
+  ring.style.left = ringX + 'px';
+  ring.style.top = ringY + 'px';
+  requestAnimationFrame(animateRing);
+}
+animateRing();
+
+document.querySelectorAll('a, button, .division-card, .roster-card, .work-item, .partner-card, .service-row').forEach(el => {
+  el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+  el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+});
+
+// =====================
+// NAV SCROLL
+// =====================
 const navbar = document.getElementById('navbar');
 if (navbar) {
   window.addEventListener('scroll', () => {
@@ -6,7 +66,6 @@ if (navbar) {
   });
 }
 
-// Nav overlay
 const menuToggle = document.getElementById('menuToggle');
 const navOverlay = document.getElementById('navOverlay');
 const navClose = document.getElementById('navClose');
@@ -22,14 +81,14 @@ if (menuToggle && navOverlay && navClose) {
   });
 }
 
-// Scroll reveal
+// =====================
+// SCROLL REVEAL
+// =====================
 const reveals = document.querySelectorAll('.reveal');
 const revealObserver = new IntersectionObserver((entries) => {
   entries.forEach((entry, i) => {
     if (entry.isIntersecting) {
-      setTimeout(() => {
-        entry.target.classList.add('visible');
-      }, i * 60);
+      setTimeout(() => entry.target.classList.add('visible'), i * 60);
       revealObserver.unobserve(entry.target);
     }
   });
@@ -37,14 +96,40 @@ const revealObserver = new IntersectionObserver((entries) => {
 
 reveals.forEach(el => revealObserver.observe(el));
 
-// Stagger siblings in grid
-document.querySelectorAll('.divisions-grid, .work-grid, .work-full-grid, .roster-grid, .partners-section-grid').forEach(grid => {
+document.querySelectorAll('.divisions-grid, .work-grid, .work-full-grid, .roster-grid, .partners-section-grid, .stats-grid').forEach(grid => {
   grid.querySelectorAll('.reveal').forEach((el, i) => {
     el.style.transitionDelay = `${i * 0.1}s`;
   });
 });
 
-// Filter buttons (work page)
+// =====================
+// STATS COUNTER
+// =====================
+document.querySelectorAll('.stat-number').forEach(el => {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const target = parseInt(el.dataset.target);
+        const duration = 1400;
+        const start = performance.now();
+        function update(now) {
+          const p = Math.min((now - start) / duration, 1);
+          const eased = 1 - Math.pow(1 - p, 3);
+          el.textContent = Math.floor(eased * target);
+          if (p < 1) requestAnimationFrame(update);
+          else el.textContent = target;
+        }
+        requestAnimationFrame(update);
+        observer.unobserve(el);
+      }
+    });
+  }, { threshold: 0.5 });
+  observer.observe(el);
+});
+
+// =====================
+// FILTER BUTTONS
+// =====================
 const filterBtns = document.querySelectorAll('.filter-btn');
 filterBtns.forEach(btn => {
   btn.addEventListener('click', () => {
@@ -52,23 +137,21 @@ filterBtns.forEach(btn => {
     btn.classList.add('active');
     const filter = btn.dataset.filter;
     document.querySelectorAll('.work-full-grid .work-item').forEach(item => {
-      if (filter === 'all' || item.dataset.category === filter) {
-        item.style.display = 'block';
-      } else {
-        item.style.display = 'none';
-      }
+      item.style.display = (filter === 'all' || item.dataset.category === filter) ? 'block' : 'none';
     });
   });
 });
 
-// Contact form submit
+// =====================
+// CONTACT FORM
+// =====================
 const contactForm = document.getElementById('contactForm');
 if (contactForm) {
   contactForm.addEventListener('submit', (e) => {
     e.preventDefault();
     const btn = contactForm.querySelector('.btn-primary');
     btn.textContent = 'Sent ✓';
-    btn.style.background = '#5a8a5a';
+    btn.style.background = '#4a7a4a';
     setTimeout(() => {
       btn.textContent = 'Send Message';
       btn.style.background = '';
@@ -76,3 +159,18 @@ if (contactForm) {
     }, 3000);
   });
 }
+
+// =====================
+// ROSTER HOVER OVERLAYS
+// =====================
+document.querySelectorAll('.roster-card').forEach(card => {
+  const name = card.querySelector('h4')?.textContent || '';
+  const genre = card.querySelector('span')?.textContent || '';
+  const thumb = card.querySelector('.roster-thumb');
+  if (name && thumb && !thumb.querySelector('.roster-card-overlay')) {
+    const overlay = document.createElement('div');
+    overlay.className = 'roster-card-overlay';
+    overlay.innerHTML = `<p class="roster-overlay-genre">${genre}</p><p class="roster-overlay-name">${name}</p>`;
+    thumb.appendChild(overlay);
+  }
+});
