@@ -1,9 +1,74 @@
 // =====================
+// CUSTOM CURSOR — runs first
+// =====================
+const isTouchDevice = window.matchMedia('(hover: none)').matches;
+
+if (!isTouchDevice) {
+  const dot = document.createElement('div');
+  dot.className = 'cursor-dot';
+  const ring = document.createElement('div');
+  ring.className = 'cursor-ring';
+  document.body.appendChild(dot);
+  document.body.appendChild(ring);
+
+  let mouseX = 0, mouseY = 0;
+  let ringX = 0, ringY = 0;
+  let cursorVisible = false;
+
+  document.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+
+    // Use transform instead of left/top for the dot — much more reliable
+    dot.style.transform = `translate(${mouseX}px, ${mouseY}px) translate(-50%, -50%)`;
+
+    if (!cursorVisible) {
+      dot.style.opacity = '1';
+      ring.style.opacity = '1';
+      cursorVisible = true;
+    }
+  });
+
+  document.addEventListener('mouseleave', () => {
+    dot.style.opacity = '0';
+    ring.style.opacity = '0';
+    cursorVisible = false;
+  });
+
+  // Smooth ring follow via RAF
+  function animateRing() {
+    ringX += (mouseX - ringX) * 0.12;
+    ringY += (mouseY - ringY) * 0.12;
+    ring.style.transform = `translate(${ringX}px, ${ringY}px) translate(-50%, -50%)`;
+    requestAnimationFrame(animateRing);
+  }
+  animateRing();
+
+  // Hover grow effect
+  function addHoverListeners() {
+    document.querySelectorAll('a, button, .division-card, .roster-card, .work-item, .partner-card, .service-row, .filter-btn, .gallery-tab').forEach(el => {
+      el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+      el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+    });
+  }
+  addHoverListeners();
+  // Re-run after DOM changes
+  window.addEventListener('load', addHoverListeners);
+}
+
+// =====================
 // PAGE TRANSITION
 // =====================
 const transition = document.createElement('div');
 transition.className = 'page-transition';
 document.body.appendChild(transition);
+
+// Ensure transition is hidden on load
+window.addEventListener('pageshow', () => {
+  transition.classList.remove('active');
+  transition.style.opacity = '0';
+  transition.style.pointerEvents = 'none';
+});
 
 document.addEventListener('click', (e) => {
   const link = e.target.closest('a');
@@ -13,47 +78,15 @@ document.addEventListener('click', (e) => {
     !link.href.startsWith('mailto') &&
     !link.href.startsWith('tel') &&
     !link.target &&
+    !link.href.includes('#') &&
     link.hostname === window.location.hostname
   ) {
     e.preventDefault();
     const dest = link.href;
-    transition.classList.add('active');
+    transition.style.opacity = '1';
+    transition.style.pointerEvents = 'all';
     setTimeout(() => { window.location.href = dest; }, 380);
   }
-});
-
-// =====================
-// CUSTOM CURSOR
-// =====================
-const dot = document.createElement('div');
-dot.className = 'cursor-dot';
-const ring = document.createElement('div');
-ring.className = 'cursor-ring';
-document.body.appendChild(dot);
-document.body.appendChild(ring);
-
-let mouseX = 0, mouseY = 0;
-let ringX = 0, ringY = 0;
-
-document.addEventListener('mousemove', (e) => {
-  mouseX = e.clientX;
-  mouseY = e.clientY;
-  dot.style.left = mouseX + 'px';
-  dot.style.top = mouseY + 'px';
-});
-
-function animateRing() {
-  ringX += (mouseX - ringX) * 0.12;
-  ringY += (mouseY - ringY) * 0.12;
-  ring.style.left = ringX + 'px';
-  ring.style.top = ringY + 'px';
-  requestAnimationFrame(animateRing);
-}
-animateRing();
-
-document.querySelectorAll('a, button, .division-card, .roster-card, .work-item, .partner-card, .service-row').forEach(el => {
-  el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
-  el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
 });
 
 // =====================
