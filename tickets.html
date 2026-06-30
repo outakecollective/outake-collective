@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tickets — D.I.E. Premiere | Outake Collective</title>
+<meta name="description" content="Get your tickets to the Outake Productions D.I.E. Premiere. July 24 at Eastwood Performing Arts Theater, Los Angeles.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="packages.css">
+<link rel="stylesheet" href="tickets.css">
+</head>
+<body>
+
+<nav id="navbar">
+  <a href="index.html" class="nav-logo">
+    <img src="logo-white.png" alt="Outake Collective" class="logo-img">
+  </a>
+  <button class="nav-menu-btn" id="menuToggle" aria-label="Open menu">
+    <span></span><span></span>
+  </button>
+  <div class="nav-overlay" id="navOverlay">
+    <button class="nav-close" id="navClose">✕</button>
+    <div class="nav-overlay-inner">
+      <div class="nav-links">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="about.html" class="nav-link">About</a>
+        <a href="music.html" class="nav-link">Music Group</a>
+        <a href="productions.html" class="nav-link">Productions</a>
+        <a href="apparel.html" class="nav-link">Apparel</a>
+        <a href="packages.html" class="nav-link">Packages</a>
+        <a href="tickets.html" class="nav-link">Tickets</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+      </div>
+      <div class="nav-footer">
+        <a href="https://www.instagram.com/outakecollective/" target="_blank">Instagram</a>
+        <a href="https://www.tiktok.com/@outakeprod" target="_blank">TikTok</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="page-hero">
+  <div class="page-hero-bg"></div>
+  <div class="page-hero-inner">
+    <p class="page-breadcrumb reveal">Outake Productions / Tickets</p>
+    <h1 class="page-title reveal">D.I.E.<br>PREMIERE</h1>
+    <p class="page-sub reveal">An in-house short film. Funded, shot, and edited by the full Outake team.</p>
+  </div>
+</section>
+
+<!-- EVENT DETAILS + CHECKOUT -->
+<section class="tickets-main">
+  <div class="container">
+    <div class="tickets-layout">
+
+      <!-- EVENT INFO -->
+      <div class="ticket-info">
+        <p class="section-eyebrow reveal">Event Details</p>
+        <h2 class="reveal">Red Carpet Premiere</h2>
+
+        <div class="ticket-detail-list reveal">
+          <div class="ticket-detail-item">
+            <h5>Date &amp; Time</h5>
+            <p>Friday, July 24 &middot; 7:00 PM &ndash; 10:00 PM</p>
+          </div>
+          <div class="ticket-detail-item">
+            <h5>Venue</h5>
+            <p>Eastwood Performing Arts Theater<br>1089 N Oxford Ave, Los Angeles, CA 90029</p>
+          </div>
+          <div class="ticket-detail-item">
+            <h5>Price</h5>
+            <p>$15.00 per ticket</p>
+          </div>
+        </div>
+
+        <p class="ticket-note reveal">Tickets are limited. Each order includes a QR code ticket sent to your email for entry at the door.</p>
+      </div>
+
+      <!-- CHECKOUT CARD -->
+      <div class="ticket-checkout-card reveal">
+        <div class="ticket-checkout-header">
+          <span class="pkg-tier">General Admission</span>
+          <h3>$15.00</h3>
+          <p>per ticket</p>
+        </div>
+
+        <div class="ticket-qty-row">
+          <label for="ticketQty">Quantity</label>
+          <div class="qty-stepper">
+            <button type="button" id="qtyMinus" aria-label="Decrease quantity">&minus;</button>
+            <input type="number" id="ticketQty" value="1" min="1" max="10" readonly>
+            <button type="button" id="qtyPlus" aria-label="Increase quantity">+</button>
+          </div>
+        </div>
+
+        <div class="ticket-total-row">
+          <span>Total</span>
+          <span id="ticketTotal">$15.00</span>
+        </div>
+
+        <button id="checkoutBtn" class="btn-primary ticket-checkout-btn">
+          Get Tickets
+        </button>
+
+        <p class="ticket-secure-note">Secure checkout powered by Stripe</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="logo-white.png" alt="Outake Collective" class="footer-logo-img">
+        <p>A full service creative agency.<br>We Shift Culture.</p>
+        <p class="footer-location">Los Angeles, CA</p>
+      </div>
+      <div class="footer-nav">
+        <h5>Studio</h5>
+        <a href="about.html">About</a>
+        <a href="music.html">Music Group</a>
+        <a href="productions.html">Productions</a>
+        <a href="apparel.html">Apparel</a>
+        <a href="packages.html">Packages</a>
+        <a href="tickets.html">Tickets</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <div class="footer-social">
+        <h5>Follow</h5>
+        <a href="https://www.instagram.com/outakecollective/" target="_blank" class="footer-social-link"><img src="img-social-instagram.webp" alt="Instagram" class="social-icon"> @outakecollective</a>
+        <a href="https://www.instagram.com/outakemusic/" target="_blank" class="footer-social-link"><img src="img-social-instagram.webp" alt="Instagram" class="social-icon"> @outakemusic</a>
+        <a href="https://www.instagram.com/outakeprod/" target="_blank" class="footer-social-link"><img src="img-social-instagram.webp" alt="Instagram" class="social-icon"> @outakeprod</a>
+        <a href="https://www.tiktok.com/@outakeprod" target="_blank" class="footer-social-link"><img src="img-social-tiktok.webp" alt="TikTok" class="social-icon"> @outakeprod</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© Outake Collective 2026</span>
+      <a href="privacy.html">Privacy Policy</a>
+    </div>
+  </div>
+</footer>
+
+<script src="main.js"></script>
+<script>
+const qtyInput = document.getElementById('ticketQty');
+const qtyMinus = document.getElementById('qtyMinus');
+const qtyPlus = document.getElementById('qtyPlus');
+const totalEl = document.getElementById('ticketTotal');
+const checkoutBtn = document.getElementById('checkoutBtn');
+
+const PRICE = 15.00;
+
+function updateTotal() {
+  const qty = parseInt(qtyInput.value);
+  totalEl.textContent = `$${(qty * PRICE).toFixed(2)}`;
+}
+
+qtyMinus.addEventListener('click', () => {
+  const qty = Math.max(1, parseInt(qtyInput.value) - 1);
+  qtyInput.value = qty;
+  updateTotal();
+});
+
+qtyPlus.addEventListener('click', () => {
+  const qty = Math.min(10, parseInt(qtyInput.value) + 1);
+  qtyInput.value = qty;
+  updateTotal();
+});
+
+checkoutBtn.addEventListener('click', async () => {
+  checkoutBtn.disabled = true;
+  checkoutBtn.textContent = 'Loading...';
+
+  try {
+    const res = await fetch('/.netlify/functions/create-checkout', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ quantity: parseInt(qtyInput.value) }),
+    });
+    const data = await res.json();
+
+    if (data.url) {
+      window.location.href = data.url;
+    } else {
+      throw new Error(data.error || 'Something went wrong');
+    }
+  } catch (err) {
+    alert('Unable to start checkout. Please try again or contact us.');
+    checkoutBtn.disabled = false;
+    checkoutBtn.textContent = 'Get Tickets';
+  }
+});
+</script>
+</body>
+</html>

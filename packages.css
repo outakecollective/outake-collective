@@ -581,3 +581,44 @@
 @media (max-width: 900px) {
   .whats-hot-grid { grid-template-columns: 1fr; }
 }
+
+/* =====================
+   TICKETS BANNER
+   ===================== */
+
+.tickets-banner {
+  position: relative;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 12px 20px;
+  background: var(--accent);
+  color: var(--black);
+  text-align: center;
+  transition: background 0.3s ease;
+}
+
+.tickets-banner:hover {
+  background: var(--accent2);
+}
+
+.tickets-banner-text {
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+}
+
+.tickets-banner-arrow {
+  font-size: 14px;
+  transition: transform 0.3s ease;
+}
+
+.tickets-banner:hover .tickets-banner-arrow {
+  transform: translateX(4px);
+}
+
+@media (max-width: 600px) {
+  .tickets-banner-text { font-size: 11px; }
+}

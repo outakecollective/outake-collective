@@ -1,0 +1,8 @@
+{
+  "name": "outake-collective-functions",
+  "version": "1.0.0",
+  "description": "Netlify Functions for Outake Collective ticketing",
+  "dependencies": {
+    "stripe": "^14.0.0"
+  }
+}
