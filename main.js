@@ -116,3 +116,34 @@ document.querySelectorAll('.roster-card').forEach(card => {
     thumb.appendChild(overlay);
   }
 });
+
+// =====================
+// YOUTUBE CLICK-TO-PLAY
+// =====================
+document.querySelectorAll('.yt-card').forEach(card => {
+  card.addEventListener('click', () => {
+    const videoId = card.dataset.ytId;
+    const thumb = card.querySelector('.yt-thumb');
+    if (!videoId || !thumb) return;
+
+    const wrap = document.createElement('div');
+    wrap.className = 'yt-embed-wrap';
+    wrap.innerHTML = `<iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0" title="YouTube video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+
+    thumb.replaceWith(wrap);
+  }, { once: true });
+});
+
+
+// =====================
+// YOUTUBE THUMBNAIL FALLBACK
+// =====================
+document.querySelectorAll('.yt-thumb img').forEach(img => {
+  img.addEventListener('error', () => {
+    const card = img.closest('.yt-card');
+    const videoId = card?.dataset.ytId;
+    if (videoId && img.src.includes('maxresdefault')) {
+      img.src = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+    }
+  });
+});
