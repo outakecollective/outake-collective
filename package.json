@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "description": "Netlify Functions for Outake Collective ticketing",
   "dependencies": {
-    "stripe": "^14.0.0"
+    "stripe": "^14.0.0",
+    "resend": "^4.0.1",
+    "qrcode": "^1.5.4"
   }
 }
