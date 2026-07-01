@@ -187,9 +187,28 @@ checkoutBtn.addEventListener('click', async () => {
 
     if (data.url) {
       window.location.href = data.url;
-    } else {
-      throw new Error(data.error || 'Something went wrong');
+      return;
     }
+
+    // Example: TICKET_LIMIT reached, no tickets left at all
+    if (data.error === 'sold_out') {
+      alert("Sorry, this event is completely sold out.");
+      checkoutBtn.disabled = true;
+      checkoutBtn.textContent = 'Sold Out';
+      return;
+    }
+
+    // Example: 2 tickets left, customer tried to buy 5 -> shows "Only 2 tickets remaining..."
+    if (data.error === 'not_enough_remaining') {
+      alert(`Only ${data.remaining} ticket(s) remaining. Please lower your quantity and try again.`);
+      qtyInput.value = Math.max(1, data.remaining);
+      updateTotal();
+      checkoutBtn.disabled = false;
+      checkoutBtn.textContent = 'Get Tickets';
+      return;
+    }
+
+    throw new Error(data.error || 'Something went wrong');
   } catch (err) {
     alert('Unable to start checkout. Please try again or contact us.');
     checkoutBtn.disabled = false;

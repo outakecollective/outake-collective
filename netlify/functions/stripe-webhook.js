@@ -63,6 +63,17 @@ exports.handler = async function (event) {
       });
     }
 
+    // Bump the running sold-ticket counter used by create-checkout.js to enforce the limit.
+    // Example: if 12 tickets were sold before this purchase and this order is for 2,
+    // the counter goes from 12 -> 14.
+    const counterStore = getStore({
+      name: 'ticket-counter',
+      siteID: process.env.NETLIFY_SITE_ID,
+      token: process.env.NETLIFY_BLOBS_TOKEN,
+    });
+    const currentCount = parseInt((await counterStore.get('sold')) || '0');
+    await counterStore.set('sold', String(currentCount + tickets.length));
+
     if (!customerEmail) {
       console.error('No customer email on session', session.id);
       return { statusCode: 200, body: JSON.stringify({ received: true, warning: 'no email' }) };
