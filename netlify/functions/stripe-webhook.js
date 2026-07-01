@@ -1,10 +1,11 @@
 // netlify/functions/stripe-webhook.js
-// Listens for successful payments, generates a ticket with QR code, and emails it
+// Listens for successful payments, generates a ticket with QR code, stores it, and emails it
 
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const crypto = require('crypto');
 const QRCode = require('qrcode');
 const { Resend } = require('resend');
+const { getStore } = require('@netlify/blobs');
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -29,16 +30,11 @@ exports.handler = async function (event) {
     const customerEmail = session.customer_details?.email;
     const customerName = session.customer_details?.name || 'Guest';
 
-    // Generate unique ticket codes — one per ticket purchased
     const tickets = [];
     for (let i = 0; i < quantity; i++) {
       const ticketCode = crypto.randomBytes(8).toString('hex').toUpperCase();
       tickets.push(ticketCode);
     }
-
-    // NOTE: In a full production setup, you'd store these ticket codes in a database
-    // (e.g. Netlify Blobs, Airtable, or a simple JSON store) so the scanner can verify them.
-    // For now this generates the codes and logs them — see scan.html setup notes below.
 
     console.log('New ticket purchase:', {
       customerEmail,
@@ -47,14 +43,27 @@ exports.handler = async function (event) {
       sessionId: session.id,
     });
 
+    // Store each ticket in Netlify Blobs so the scan page can look it up and mark it used.
+    // Example record stored under key "D550344492BF6C8F":
+    // { code: "D550344492BF6C8F", name: "Angel Test", email: "angel@example.com", used: false, usedAt: null }
+    const ticketStore = getStore('tickets');
+    for (const code of tickets) {
+      await ticketStore.setJSON(code, {
+        code,
+        name: customerName,
+        email: customerEmail,
+        sessionId: session.id,
+        used: false,
+        usedAt: null,
+        createdAt: new Date().toISOString(),
+      });
+    }
+
     if (!customerEmail) {
       console.error('No customer email on session', session.id);
       return { statusCode: 200, body: JSON.stringify({ received: true, warning: 'no email' }) };
     }
 
-    // Generate a QR code image for each ticket, and build the attachments + HTML blocks
-    // Example: for a 2-ticket order, this produces two <img cid> tags and two attachments,
-    // one per ticket code like "A1B2C3D4E5F6G7H8"
     const attachments = [];
     const ticketBlocksHtml = [];
 

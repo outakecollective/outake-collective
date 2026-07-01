@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Ticket Scanner</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.3.8/html5-qrcode.min.js"></script>
+<style>
+  body {
+    margin: 0;
+    font-family: -apple-system, sans-serif;
+    background: #111;
+    color: white;
+    text-align: center;
+  }
+  #reader {
+    width: 100%;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+  #result {
+    padding: 24px;
+    font-size: 20px;
+    font-weight: bold;
+    min-height: 80px;
+  }
+  .valid { background: #16a34a; }
+  .invalid { background: #dc2626; }
+  .idle { background: #222; color: #888; font-weight: normal; }
+  #scan-again {
+    display: none;
+    margin: 16px auto;
+    padding: 12px 24px;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    background: #333;
+    color: white;
+  }
+</style>
+</head>
+<body>
+
+<div id="result" class="idle">Point camera at a ticket QR code</div>
+<div id="reader"></div>
+<button id="scan-again">Scan next ticket</button>
+
+<script>
+  const resultDiv = document.getElementById('result');
+  const scanAgainBtn = document.getElementById('scan-again');
+  let isProcessing = false;
+
+  const scanner = new Html5Qrcode("reader");
+
+  function startScanning() {
+    scanner.start(
+      { facingMode: "environment" }, // use back camera
+      { fps: 10, qrbox: 250 },
+      onScanSuccess
+    ).catch(err => {
+      resultDiv.className = 'invalid';
+      resultDiv.textContent = 'Camera error: ' + err;
+    });
+  }
+
+  async function onScanSuccess(decodedText) {
+    if (isProcessing) return; // ignore rapid re-fires while checking one code
+    isProcessing = true;
+
+    scanner.pause();
+    resultDiv.className = 'idle';
+    resultDiv.textContent = 'Checking...';
+
+    try {
+      const res = await fetch('/.netlify/functions/check-ticket', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ code: decodedText }),
+      });
+      const data = await res.json();
+
+      if (data.valid) {
+        // Example: "✓ Valid — Angel Test"
+        resultDiv.className = 'valid';
+        resultDiv.textContent = `✓ Valid — ${data.name}`;
+      } else if (data.reason === 'already_used') {
+        // Example: "✗ Already used — Angel Test at 7:04:12 PM"
+        const time = data.usedAt ? new Date(data.usedAt).toLocaleTimeString() : '';
+        resultDiv.className = 'invalid';
+        resultDiv.textContent = `✗ Already used — ${data.name} at ${time}`;
+      } else if (data.reason === 'not_found') {
+        resultDiv.className = 'invalid';
+        resultDiv.textContent = `✗ Ticket not found`;
+      } else {
+        resultDiv.className = 'invalid';
+        resultDiv.textContent = `✗ Error checking ticket`;
+      }
+    } catch (err) {
+      resultDiv.className = 'invalid';
+      resultDiv.textContent = '✗ Network error';
+    }
+
+    scanAgainBtn.style.display = 'inline-block';
+    isProcessing = false;
+  }
+
+  scanAgainBtn.addEventListener('click', () => {
+    resultDiv.className = 'idle';
+    resultDiv.textContent = 'Point camera at a ticket QR code';
+    scanAgainBtn.style.display = 'none';
+    scanner.resume();
+  });
+
+  startScanning();
+</script>
+
+</body>
+</html>

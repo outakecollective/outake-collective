@@ -5,6 +5,7 @@
   "dependencies": {
     "stripe": "^14.0.0",
     "resend": "^4.0.1",
-    "qrcode": "^1.5.4"
+    "qrcode": "^1.5.4",
+    "@netlify/blobs": "^8.1.0"
   }
 }
