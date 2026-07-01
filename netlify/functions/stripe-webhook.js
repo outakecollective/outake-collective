@@ -46,7 +46,11 @@ exports.handler = async function (event) {
     // Store each ticket in Netlify Blobs so the scan page can look it up and mark it used.
     // Example record stored under key "D550344492BF6C8F":
     // { code: "D550344492BF6C8F", name: "Angel Test", email: "angel@example.com", used: false, usedAt: null }
-    const ticketStore = getStore('tickets');
+    const ticketStore = getStore({
+      name: 'tickets',
+      siteID: process.env.NETLIFY_SITE_ID,
+      token: process.env.NETLIFY_BLOBS_TOKEN,
+    });
     for (const code of tickets) {
       await ticketStore.setJSON(code, {
         code,

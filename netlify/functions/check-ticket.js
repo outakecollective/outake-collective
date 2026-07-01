@@ -17,7 +17,11 @@ exports.handler = async function (event) {
       return { statusCode: 400, body: JSON.stringify({ valid: false, reason: 'no_code' }) };
     }
 
-    const ticketStore = getStore('tickets');
+    const ticketStore = getStore({
+      name: 'tickets',
+      siteID: process.env.NETLIFY_SITE_ID,
+      token: process.env.NETLIFY_BLOBS_TOKEN,
+    });
     const ticket = await ticketStore.get(code, { type: 'json' });
 
     // Example: scanning a code that was never issued (typo, fake, or old test data)
