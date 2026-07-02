@@ -112,8 +112,10 @@ exports.handler = async function (event) {
         html: `
           <div style="font-family: sans-serif; max-width: 480px; margin: 0 auto;">
             <h1>You're in, ${customerName}!</h1>
-            <p>Eastwood Performing Arts Theater, July 24, 7:00 PM – 10:00 PM</p>
+            <p>Eastwood Performing Arts Theater 1089 N Oxford Ave, Los Angeles, CA 90029, July 24, 7:00 PM – 10:00 PM</p>
+            <p>Dress Attire: Formal/Business Casual</p>
             <p>Show each QR code at the door — one scan per ticket.</p>
+            <p>For any questions, please contact us at outakeprod@gmail.com</p>
             ${ticketBlocksHtml.join('')}
           </div>
         `,
